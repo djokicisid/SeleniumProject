@@ -27,7 +27,8 @@ public class LoginPage {
     private By usernameField = By.id("username");
     private By passwordField = By.id("password");
     private By loginButton = By.cssSelector("button[type='submit']");
-    private By errorMessage = By.cssSelector(".error-message");
+    //private By errorMessage = By.cssSelector(".error-message");
+    private By errorMessage = By.id("flash");
 
     /**
      * This method is the constructor for the LoginPage class.
