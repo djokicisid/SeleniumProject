@@ -1,8 +1,12 @@
+import Utils.LoggerUtil;
+import Utils.TestResultLogger;
 import Utils.WebDriverHandler;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 /**
  * The LoginTest class contains test cases for the login functionality of the application.
@@ -11,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * It uses Selenium WebDriver for browser automation to simulate user interactions.
  * </p>
  */
+@ExtendWith(TestResultLogger.class)
 public class LoginTest extends WebDriverHandler {
     private LoginPage loginPage;
 
@@ -41,6 +46,10 @@ public class LoginTest extends WebDriverHandler {
         loginPage.enterUsername("tomsmith");
         loginPage.enterPassword("SuperSecretPassword!");
         loginPage.clickLoginButton();
+
+        // Assert that login is successful based on the success message
+        assertNotNull(loginPage.getSecurePageMessage());
+
         LOGGER.info("Login successful.");
     }
 
@@ -71,8 +80,9 @@ public class LoginTest extends WebDriverHandler {
         loginPage.enterPassword("invalid_password");
         loginPage.clickLoginButton();
 
-        // Assert that login is not successful based on the error message presence
+        // Assert that login is not successful based on the error message
         assertNotNull(loginPage.getErrorMessage());
+
         LOGGER.info(loginPage.getErrorMessage());
         LOGGER.info("Invalid login attempt.");
     }

@@ -22,7 +22,7 @@ public class LoggerUtil {
     private static final Logger LOGGER = Logger.getLogger(LoggerUtil.class.getName());
 
     static {
-        // konfiguracija logger-a
+        // logger configuration
         ConsoleHandler consoleHandler = new ConsoleHandler();
         consoleHandler.setLevel(Level.ALL);
         LOGGER.addHandler(consoleHandler);

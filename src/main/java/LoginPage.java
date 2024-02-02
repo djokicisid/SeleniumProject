@@ -27,8 +27,8 @@ public class LoginPage {
     private By usernameField = By.id("username");
     private By passwordField = By.id("password");
     private By loginButton = By.cssSelector("button[type='submit']");
-    //private By errorMessage = By.cssSelector(".error-message");
-    private By errorMessage = By.id("flash");
+    private By errorMessage = By.cssSelector(".flash.error");
+    private By securePageMessage = By.cssSelector(".flash.success");
 
     /**
      * This method is the constructor for the LoginPage class.
@@ -75,10 +75,18 @@ public class LoginPage {
     }
 
     /**
-     * This method his used to retrieve the text content of the error message web element.
+     * This method is used to retrieve the text content of the error message web element.
      * @return Error Message text
      */
     public String getErrorMessage() {
         return driver.findElement(errorMessage).getText();
+    }
+
+    /**
+     * This method is used to retrieve the text content of the success message web element.
+     * @return Success Message text
+     */
+    public String getSecurePageMessage() {
+        return driver.findElement(securePageMessage).getText();
     }
 }
