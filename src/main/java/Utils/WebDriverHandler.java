@@ -22,8 +22,8 @@ public abstract class WebDriverHandler {
 
     /**
      * This method creates an instance of a Chrome web driver
-     * It has BeforeAll JUnit annotation which means that it will be executed before all the tests within the test class
-     * BeforeAll methods are executed before any test methods in the test class, and they need to be called on the class itself,
+     * It has @BeforeAll JUnit annotation which means that it will be executed before all the tests within the test class
+     * -@BeforeAll methods are executed before any test methods in the test class, and they need to be called on the class itself,
      * not on an instance of the class. The static keyword indicates that the method belongs to the class itself, and it can be
      * invoked without creating an instance of the class.
      */
@@ -35,7 +35,7 @@ public abstract class WebDriverHandler {
 
     /**
      * This method tears down the instance of a Chrome web driver
-     * It has AfterAll JUnit annotation which means that it will be executed after all the tests within the test class have finished
+     * It has @AfterAll JUnit annotation which means that it will be executed after all the tests within the test class have finished
      * In JUnit, methods annotated with @AfterAll are used for cleanup tasks that should be executed once after all test methods in
      * a test class have run. Since these methods are called on the class itself and not on an instance of the class,
      * they must be declared as static.
