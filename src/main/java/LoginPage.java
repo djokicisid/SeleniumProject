@@ -1,3 +1,4 @@
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -28,7 +29,6 @@ public class LoginPage {
     private By passwordField = By.id("password");
     private By loginButton = By.cssSelector("button[type='submit']");
     private By errorMessage = By.cssSelector(".flash.error");
-    private By securePageMessage = By.cssSelector(".flash.success");
 
     /**
      * This method is the constructor for the LoginPage class.
@@ -48,9 +48,12 @@ public class LoginPage {
      * This method simulates entering the provided username into the username input field.
      * </p>
      * @param username The username to be entered.
+     * @return The LoginPage object
      */
-    public void enterUsername(String username) {
+    @Step("Enter username: {username}")
+    public LoginPage enterUsername(String username) {
         driver.findElement(usernameField).sendKeys(username);
+        return this;
     }
 
     /**
@@ -59,9 +62,12 @@ public class LoginPage {
      * This method simulates entering the provided password into the password input field.
      * </p>
      * @param password The password to be entered.
+     * @return The LoginPage object
      */
-    public void enterPassword(String password) {
+    @Step("Enter password:")
+    public LoginPage enterPassword(String password) {
         driver.findElement(passwordField).sendKeys(password);
+        return this;
     }
 
     /**
@@ -69,9 +75,13 @@ public class LoginPage {
      * <p>
      * This method simulates clicking the login button to submit the login form.
      * </p>
+     *
+     * @return A new SecurePage object after clicking the login button.
      */
-    public void clickLoginButton() {
+    @Step("Click login button")
+    public SecurePage clickLoginButton() {
         driver.findElement(loginButton).click();
+        return new SecurePage(driver);
     }
 
     /**
@@ -80,13 +90,5 @@ public class LoginPage {
      */
     public String getErrorMessage() {
         return driver.findElement(errorMessage).getText();
-    }
-
-    /**
-     * This method is used to retrieve the text content of the success message web element.
-     * @return Success Message text
-     */
-    public String getSecurePageMessage() {
-        return driver.findElement(securePageMessage).getText();
     }
 }

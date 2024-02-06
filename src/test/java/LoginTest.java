@@ -1,10 +1,14 @@
 import Utils.LoggerUtil;
 import Utils.TestResultLogger;
 import Utils.WebDriverHandler;
+import io.qameta.allure.*;
+import jdk.jfr.Description;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static io.qameta.allure.SeverityLevel.CRITICAL;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
@@ -15,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * It uses Selenium WebDriver for browser automation to simulate user interactions.
  * </p>
  */
+@Severity(CRITICAL)
+@Owner("Isidora Djokic")
 @ExtendWith(TestResultLogger.class)
 public class LoginTest extends WebDriverHandler {
     private LoginPage loginPage;
@@ -39,19 +45,26 @@ public class LoginTest extends WebDriverHandler {
      */
     @Test
     @Tag("smoke")
+    @DisplayName("Valid Login")
+    @Description("This test attempts to log into the website using a valid username and a valid password. Fails if any error happens and success message does not appear.")
     public void validLogin() {
         loginPage = new LoginPage(driver);
+        SecurePage securePage;
+
         driver.get("https://the-internet.herokuapp.com/login");
 
         loginPage.enterUsername("tomsmith");
         loginPage.enterPassword("SuperSecretPassword!");
-        loginPage.clickLoginButton();
+        securePage=loginPage.clickLoginButton();
 
         // Assert that login is successful based on the success message
-        assertNotNull(loginPage.getSecurePageMessage());
+        assertNotNull(securePage.getSecurePageMessage());
 
         LOGGER.info("Login successful.");
     }
+
+
+
 
     /**
      * Negative test that tests the login functionality with invalid credentials.
@@ -73,9 +86,12 @@ public class LoginTest extends WebDriverHandler {
      */
     @Test
     @Tag("negative")
+    @DisplayName("Invalid Login")
+    @Description("This test attempts to log into the website using an invalid username and an invalid password. Fails error massage does not appear.")
     public void invalidLogin() {
         loginPage = new LoginPage(driver);
         driver.get("https://the-internet.herokuapp.com/login");
+
         loginPage.enterUsername("invalid_username");
         loginPage.enterPassword("invalid_password");
         loginPage.clickLoginButton();
