@@ -2,6 +2,7 @@ package Utils;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -46,6 +47,23 @@ public abstract class WebDriverHandler {
             driver.quit();
             LOGGER.info("WebDriver quit.");
         }
+    }
+
+    /**
+     * This method opens the specified URL in the browser.
+     * <p>
+     * This method navigates the WebDriver instance to the provided URL.
+     * </p>
+     * <p>
+     * Example usage:
+     * <pre>{@code
+     * driver.open("https://example.com");
+     * }</pre>
+     * </p>
+     * @param url The URL to be opened in the browser.
+     */
+    public void open(String url){
+        driver.get(url);
     }
 }
 
