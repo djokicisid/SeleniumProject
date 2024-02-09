@@ -1,5 +1,8 @@
-import org.openqa.selenium.By;
+import Utils.Base;
+import Utils.Locator;
 import org.openqa.selenium.WebDriver;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * The SecurePage class represents a page object for handling the secure page functionality.
@@ -17,9 +20,8 @@ import org.openqa.selenium.WebDriver;
  *
  * @see <a href="https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/">Page Object models documentation</a>
  */
-public class SecurePage {
+public class SecurePage extends Base {
     private WebDriver driver;
-    private By securePageMessage = By.cssSelector(".flash.success");
 
     /**
      * This method is the constructor for the SecurePage class.
@@ -38,6 +40,17 @@ public class SecurePage {
      * @return Success Message text
      */
     public String getSecurePageMessage() {
-        return driver.findElement(securePageMessage).getText();
+        return getText(Locator.securePageMessage);
+    }
+
+    /**
+     * Verifies that the user is logged in by checking if the secure page message contains the expected text.
+     * <p>
+     * This method asserts that the secure page message contains the text "You logged into a secure area!".
+     * If the assertion fails, it indicates that the user is not logged in.
+     * </p>
+     */
+    public void verifyUserLoggedIn() {
+        assertTrue(getSecurePageMessage().contains("You logged into a secure area!"), "User is logged in.");
     }
 }

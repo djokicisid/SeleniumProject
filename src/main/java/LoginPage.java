@@ -1,6 +1,9 @@
+import Utils.Base;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
+import Utils.Locator;
 import org.openqa.selenium.WebDriver;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * This class represents a page object for handling login functionality. It is written using the Page Object design pattern.
@@ -23,12 +26,8 @@ import org.openqa.selenium.WebDriver;
  *
  * @see <a href="https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/">Page Object models documentation</a>
  */
-public class LoginPage {
+public class LoginPage extends Base {
     private WebDriver driver;
-    private By usernameField = By.id("username");
-    private By passwordField = By.id("password");
-    private By loginButton = By.cssSelector("button[type='submit']");
-    private By errorMessage = By.cssSelector(".flash.error");
 
     /**
      * This method is the constructor for the LoginPage class.
@@ -52,7 +51,7 @@ public class LoginPage {
      */
     @Step("Enter username: {username}")
     public LoginPage enterUsername(String username) {
-        driver.findElement(usernameField).sendKeys(username);
+        type(username, Locator.usernameField);
         return this;
     }
 
@@ -66,7 +65,7 @@ public class LoginPage {
      */
     @Step("Enter password:")
     public LoginPage enterPassword(String password) {
-        driver.findElement(passwordField).sendKeys(password);
+        type(password, Locator.passwordField);
         return this;
     }
 
@@ -75,12 +74,11 @@ public class LoginPage {
      * <p>
      * This method simulates clicking the login button to submit the login form.
      * </p>
-     *
      * @return A new SecurePage object after clicking the login button.
      */
     @Step("Click login button")
     public SecurePage clickLoginButton() {
-        driver.findElement(loginButton).click();
+        click(Locator.loginButton);
         return new SecurePage(driver);
     }
 
@@ -89,6 +87,17 @@ public class LoginPage {
      * @return Error Message text
      */
     public String getErrorMessage() {
-        return driver.findElement(errorMessage).getText();
+        return getText(Locator.errorMessage);
+    }
+
+    /**
+     * Verifies that the login failed by checking if the error message contains either "Your username is invalid!" or "Your password is invalid!".
+     * <p>
+     * This method asserts that the error message contains either of the specified texts.
+     * If the assertion fails, it indicates that the login didn't fail.
+     * </p>
+     */
+    public void verifyLoginFailed() {
+        assertTrue(getErrorMessage().contains("Your username is invalid!") || getErrorMessage().contains("Your password is invalid!"), "Invalid login.");
     }
 }
