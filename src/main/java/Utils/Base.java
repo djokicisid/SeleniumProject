@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import static Utils.WebDriverHandler.driver;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Base class provides basic methods for interacting with web elements using Selenium WebDriver.
