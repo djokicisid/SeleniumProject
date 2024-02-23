@@ -1,0 +1,27 @@
+image: isi22/my-maven-chrome-image2:latest
+
+stages:
+  - setup
+  - test
+  - report
+
+setup:
+  stage: setup
+  tags:
+    - my-docker-runner
+  script:
+    - mvn clean compile
+
+test:
+  stage: test
+  tags:
+    - my-docker-runner
+  script:
+    - mvn test -Dbrowser=chrome
+
+report:
+  stage: report
+  tags:
+    - my-docker-runner
+  script:
+    - echo "Generating report..."
