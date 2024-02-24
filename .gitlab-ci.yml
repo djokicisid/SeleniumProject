@@ -1,4 +1,4 @@
-image: isi22/my-maven-chrome-image2:latest
+image: isi22/my-maven-chrome-image3:latest
 
 stages:
   - setup
@@ -17,7 +17,7 @@ test:
   tags:
     - my-docker-runner
   script:
-    - mvn test -Dbrowser=chrome
+    - mvn test -Dbrowser=firefox
 
 report:
   stage: report
