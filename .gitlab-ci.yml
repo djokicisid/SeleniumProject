@@ -18,6 +18,11 @@ test:
     - my-docker-runner
   script:
     - mvn test -Dbrowser=firefox
+  artifacts:
+    paths:
+      - rspec.xml
+    reports:
+      junit: rspec.xml
 
 report:
   stage: report
