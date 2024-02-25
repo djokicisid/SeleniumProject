@@ -19,10 +19,11 @@ test:
   script:
     - mvn test -Dbrowser=firefox
   artifacts:
-    paths:
-      - rspec.xml
+    when: always
     reports:
-      junit: rspec.xml
+      junit:
+        - target/surefire-reports/TEST-*.xml
+        - target/failsafe-reports/TEST-*.xml
 
 report:
   stage: report
